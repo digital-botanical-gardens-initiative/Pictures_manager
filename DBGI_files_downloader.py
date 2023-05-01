@@ -65,7 +65,6 @@ for prefix, urls_list in urls_gpkg_by_project.items():
         file_name = url.split('/')[-1]
         save_path = os.path.join(path_gpkg[prefix], file_name)
         response = requests.get(url, headers={'Authorization': f'Token {auth_token}', 'Accept-Encoding': 'gzip, deflate, br'}, stream=True)
-        print(response.status_code)
         if response.status_code == 200:
             with open(save_path, 'wb') as f:
                 for chunk in response.iter_content(chunk_size=8192):
