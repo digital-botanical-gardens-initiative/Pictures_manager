@@ -1,14 +1,23 @@
 #!/usr/bin/env python3
 
+from dotenv import load_dotenv
 import os
 import subprocess
 import csv
 import re
 
+#Loads environment variables
+load_dotenv()
+
+#Access the environment variables
+in_jpg_path = os.getenv('in_jpg_path')
+out_csv_path = os.getenv('out_csv_path')
+out_jpg_path = os.getenv('out_jpg_path')
+
 # Define paths
-pictures_folder = '/home/dbgi/input/pictures'
-csv_folder = '/home/dbgi/output/csv'
-output_folder = '/home/dbgi/output/pictures'
+pictures_folder = in_jpg_path
+csv_folder = out_csv_path
+output_folder = out_jpg_path
 
 # Loop over pictures
 for root, dirs, files in os.walk(pictures_folder):

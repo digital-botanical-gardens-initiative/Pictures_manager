@@ -1,8 +1,16 @@
 #!/usr/bin/env python3
 
+from dotenv import load_dotenv
 import os
 import pandas as pd
 import pyproj
+
+#Loads environment variables
+load_dotenv()
+
+#Access the environment variables
+in_csv_path = os.getenv('in_csv_path')
+out_csv_path = os.getenv('out_csv_path')
 
 def convert_csv_coordinates(csv_file_path, output_folder, root_folder):
     """
@@ -55,8 +63,8 @@ def convert_csv_coordinates(csv_file_path, output_folder, root_folder):
 
     print(f"Saved converted file to {output_file_path}")
 
-input_folder = '/home/dbgi/input/csv'
-output_folder = '/home/dbgi/output/csv'
+input_folder = in_csv_path
+output_folder = out_csv_path
 
 # Iterate over all CSV files in the input folder and its subdirectories
 for root, dirs, files in os.walk(input_folder):

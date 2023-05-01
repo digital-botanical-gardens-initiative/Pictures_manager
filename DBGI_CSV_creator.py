@@ -1,12 +1,20 @@
 #!/usr/bin/env python3
 
+from dotenv import load_dotenv
 import os
 import pandas as pd
 import geopandas as gpd
 
+#Loads environment variables
+load_dotenv()
+
+#Access the environment variables
+in_gpkg_path = os.getenv('in_gpkg_path')
+in_csv_path = os.getenv('in_csv_path')
+
 # Input/output directories
-base_gpkg_path = '/home/dbgi/input/gpkg'
-base_csv_path = '/home/dbgi/input/csv'
+base_gpkg_path = in_gpkg_path
+base_csv_path = in_csv_path
 
 # Loop over the subfolders in the gpkg directory
 for subfolder in os.listdir(base_gpkg_path):

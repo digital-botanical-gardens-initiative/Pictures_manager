@@ -1,9 +1,16 @@
 #!/usr/bin/env python3
 
+from dotenv import load_dotenv
 import os
 import re
 
-root_folder = "/home/dbgi/input/pictures"
+#Loads environment variables
+load_dotenv()
+
+#Access the environment variables
+in_jpg_path = os.getenv('in_jpg_path')
+
+root_folder = in_jpg_path
 
 for root, dirs, files in os.walk(root_folder):
     for filename in files:

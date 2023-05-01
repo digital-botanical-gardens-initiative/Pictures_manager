@@ -14,6 +14,8 @@ load_dotenv()
 url = os.getenv('Instance')
 username = os.getenv('Username')
 password = os.getenv('Password')
+in_gpkg_path= os.getenv('in_gpkg_path')
+in_jpg_path= os.getenv('in_jpg_path')
 
 #Server connection
 client = sdk.Client(url=url)
@@ -34,7 +36,7 @@ for d in projects:
             projects_names.append(value)
 
 #Constructs the gpkg urls
-base_url = 'https://dbgimap.hopto.org/api/v1/files/'
+base_url = url
 urls_gpkg_by_project = {}
 for project in projects:
     project_name = project['name']
@@ -49,7 +51,7 @@ for project in projects:
     urls_gpkg_by_project[project_name] = project_urls
 
 #Sets the gpkg directory path for each project and creates the directories if they don't exist
-base_gpkg_path = '/home/dbgi/input/gpkg/'
+base_gpkg_path = in_gpkg_path
 path_gpkg = {}
 for name in projects_names:
     dir_path = os.path.join(base_gpkg_path, name)
@@ -104,7 +106,7 @@ for project in projects:
     urls_jpg_by_project[project_name] = urls_jpg_by_layer
 
 #Sets the jpg directories path for each project and creates the directories if they don't exist
-base_jpg_path = '/home/dbgi/input/pictures/'
+base_jpg_path = in_jpg_path
 path_jpg = {}
 for project, files in file_dict.items():
     project_path = os.path.join(base_jpg_path, project)
