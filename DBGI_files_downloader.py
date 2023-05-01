@@ -12,6 +12,7 @@ load_dotenv()
 
 #Access the environment variables
 url = os.getenv('Instance')
+API = os.getenv('API')
 username = os.getenv('Username')
 password = os.getenv('Password')
 in_gpkg_path= os.getenv('in_gpkg_path')
@@ -36,7 +37,7 @@ for d in projects:
             projects_names.append(value)
 
 #Constructs the gpkg urls
-base_url = url
+base_url = API
 urls_gpkg_by_project = {}
 for project in projects:
     project_name = project['name']
@@ -64,6 +65,7 @@ for prefix, urls_list in urls_gpkg_by_project.items():
         file_name = url.split('/')[-1]
         save_path = os.path.join(path_gpkg[prefix], file_name)
         response = requests.get(url, headers={'Authorization': f'Token {auth_token}', 'Accept-Encoding': 'gzip, deflate, br'}, stream=True)
+        print(response.status_code)
         if response.status_code == 200:
             with open(save_path, 'wb') as f:
                 for chunk in response.iter_content(chunk_size=8192):
