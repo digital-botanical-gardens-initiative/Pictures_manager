@@ -14,16 +14,16 @@ To run this code:
     #QFieldCloud server instance's API link
     Instance=https://your/qfieldcloud/url/api/v1
 
-    # QFieldCloud username
+    #QFieldCloud username
     Username=yourinstanceusername
 
-    # QFieldcloud password
+    #QFieldcloud password
     Password=yourinstancepassword
 
-    # path to the folder where GPGK will be downloaded
+    #path to the folder where GPGK will be downloaded
     in_gpkg_path=/path/to/the/gpkg/folder
 
-    # path to the folder where raw JPG will be downloaded
+    #path to the folder where raw JPG will be downloaded
     in_jpg_path=/path/to/the/in/jpg/folder
 
     #path to the folder where raw csv will be stored
