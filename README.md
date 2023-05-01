@@ -12,28 +12,37 @@ To run this code:
 2. Create a .env file in the folder and add these variables on it, modified to your needs: 
 
     #QFieldCloud server instance's API link
+
     Instance=https://your/qfieldcloud/url/api/v1
 
     #QFieldCloud username
+
     Username=yourinstanceusername
 
     #QFieldcloud password
+
     Password=yourinstancepassword
 
     #path to the folder where GPGK will be downloaded
+
     in_gpkg_path=/path/to/the/gpkg/folder
 
     #path to the folder where raw JPG will be downloaded
+
     in_jpg_path=/path/to/the/in/jpg/folder
 
     #path to the folder where raw csv will be stored
+
     in_csv_path=/path/to/the/in/csv/folder
 
     #path to the folder where treated csv will be stored
+
     out_csv_path=/path/to/the/out/folder
 
     #path to the folder where treated JPG will be stored
+
     out_jpg_path=/path/to/the/out/folder
+    
 3. Run the DBGI_scripts_runner.py script, that runs all the other scipts and perform the pictures metadata edition.
 
 That's all. With that you should obtain modified pictures that contain the coordinates where the plant have been collected and the sampling code. If you want to verify, you can use the command exiftool /path/to/your/modified/picture.jpg. It will display the picture metadata.
