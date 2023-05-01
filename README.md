@@ -12,9 +12,14 @@ To run this code:
 2. Create a .env file in the folder and add these variables on it, modified to your needs: 
 
     
-    #QFieldCloud server instance's API link
+    #QFieldCloud server instance's API link to connect
 
     Instance=https://your/qfieldcloud/url/api/v1
+
+    
+    #QFieldCloud server instance's API link to connect
+
+    API=https://your/qfieldcloud/url/api/v1/files
 
     
     #QFieldCloud username
@@ -50,7 +55,7 @@ To run this code:
     #path to the folder where treated JPG will be stored
 
     out_jpg_path=/path/to/the/out/folder
-    
+
 
 3. Run the DBGI_scripts_runner.py script, that runs all the other scipts and perform the pictures metadata edition.
 
