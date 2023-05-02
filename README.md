@@ -9,54 +9,9 @@ Prerequistie to make this code work:
 
 To run this code: 
 1. clone the repository to your computer, by using this link: https://github.com/digital-botanical-gardens-initiative/iNaturalist_uploader.git
-2. Create a .env file in the folder and add these variables on it, modified to your needs: 
+2. Copy .env.example to .env and change the variables to suit your needs.
+3. Control that all used libraries are installed on your computer.
+4. Install exiftool on you Command Line Interface (bash, powershell, ...). Informations about exiftool: https://exiftool.org/
+5. Run the DBGI_scripts_runner.py script, that runs all the other scripts and perform the pictures metadata edition.
 
-    
-    #QFieldCloud server instance's API link to connect
-
-    Instance=https://your/qfieldcloud/url/api/v1
-
-    
-    #QFieldCloud server instance's API link to connect
-
-    API=https://your/qfieldcloud/url/api/v1/files
-
-    
-    #QFieldCloud username
-
-    Username=yourinstanceusername
-
-    
-    #QFieldcloud password
-
-    Password=yourinstancepassword
-
-   
-    #path to the folder where GPGK will be downloaded
-
-    in_gpkg_path=/path/to/the/gpkg/folder
-
-    
-    #path to the folder where raw JPG will be downloaded
-
-    in_jpg_path=/path/to/the/in/jpg/folder
-
-    
-    #path to the folder where raw csv will be stored
-
-    in_csv_path=/path/to/the/in/csv/folder
-
-    
-    #path to the folder where treated csv will be stored
-
-    out_csv_path=/path/to/the/out/folder
-
-   
-    #path to the folder where treated JPG will be stored
-
-    out_jpg_path=/path/to/the/out/folder
-
-
-3. Run the DBGI_scripts_runner.py script, that runs all the other scipts and perform the pictures metadata edition.
-
-That's all. With that you should obtain modified pictures that contain the coordinates where the plant have been collected and the sampling code. If you want to verify, you can use the command exiftool /path/to/your/modified/picture.jpg. It will display the picture metadata.
+That's all. With that you should obtain modified pictures that contain the coordinates where the plant have been collected and the sampling code. If you want to verify, you can got to the pictures output directory and use the command exiftool /name_of_a_picture.jpg on your CLI. It will display the picture metadata.
