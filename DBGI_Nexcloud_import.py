@@ -8,7 +8,7 @@ import shutil
 load_dotenv()
 
 #Access the environment variables
-local_path = os.getenv('out_jpg_path')
+local_path = os.getenv('out_path')
 remote_path = os.getenv('nextcloud_path')
 nextcloud_data_folder = os.getenv('next_folder_path')
 
