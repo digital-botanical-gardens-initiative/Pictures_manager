@@ -21,5 +21,5 @@ subprocess.run(['python3', './DBGI_pictures_size_control.py']).check_returncode(
 subprocess.run(['python3', './DBGI_pictures_metadata_editor.py']).check_returncode()
 
 # Run script 7
-#subprocess.run(['python', './']).check_returncode()
+subprocess.run(['python3', './DBGI_inat_formatter.py']).check_returncode()
 

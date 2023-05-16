@@ -5,6 +5,7 @@ import os
 import subprocess
 import csv
 import re
+import shutil
 
 #Loads environment variables
 load_dotenv()
@@ -55,10 +56,10 @@ for root, dirs, files in os.walk(pictures_folder):
 
             # Define output path based on relative path
             output_path = os.path.join(output_folder, relative_path)
-
+            
             # Create output directory if it doesn't exist
             os.makedirs(os.path.dirname(output_path), exist_ok=True)
-            
+
             # Write metadata using exiftool
             command = f"exiftool -Subject={unique_prefixed} -GPSLongitudeRef=East -XMP:GPSLongitude={lon} -GPSLatitudeRef=North -XMP:GPSLatitude={lat} {picture_path} -overwrite_original -o {output_path}"
             subprocess.run(command, shell=True)
