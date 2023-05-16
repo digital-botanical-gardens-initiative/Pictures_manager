@@ -19,12 +19,12 @@ def upload_files_recursive(local_path, remote_path):
 
         if os.path.isfile(item_path):
             # Move file to Nextcloud data folder and overwrite if it already exists
-            remote_file_path = os.path.join(nextcloud_data_folder, remote_item_path.lstrip('/'))
+            remote_file_path = os.path.join(nextcloud_data_folder, remote_item_path[len(local_path) + 1:])
             shutil.move(item_path, remote_file_path)
             print(f"Moved file: {item_path} -> {remote_file_path}")
         elif os.path.isdir(item_path):
             # Check if directory exists in Nextcloud data folder
-            remote_directory_path = os.path.join(nextcloud_data_folder, remote_item_path.lstrip('/'))
+            remote_directory_path = os.path.join(nextcloud_data_folder, remote_item_path[len(local_path) + 1:])
             if not os.path.exists(remote_directory_path):
                 # Create directory in Nextcloud data folder if it doesn't exist
                 os.makedirs(remote_directory_path)
