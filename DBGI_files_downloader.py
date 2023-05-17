@@ -141,9 +141,20 @@ for prefix, urls_jpg_by_layer in urls_jpg_by_project.items():
                         f.write(chunk)
                 print(f'Downloaded {save_path}')
 
-                #Delete the file on the server
-                client.delete_files(url)
-                print(f'Deleted {url}')
+                # Get the project ID based on project name
+            project_id = None
+            for project in projects:
+                if project['name'] == prefix:
+                    project_id = project['id']
+                    break
+
+            if project_id:
+                # Delete the file on the server
+                file_to_delete = os.path.join(prefix, file_name)
+                client.delete_files(project_id=project_id, glob_patterns=[file_to_delete])
+                print(f'Deleted {file_to_delete}')
             else:
-                print(f'Error downloading {url}')
+                print(f'Error: Project ID not found for project {prefix}')
+        else:
+            print(f'Error downloading {url}')
 
