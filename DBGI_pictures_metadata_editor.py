@@ -5,7 +5,6 @@ import os
 import subprocess
 import csv
 import re
-import shutil
 
 #Loads environment variables
 load_dotenv()
