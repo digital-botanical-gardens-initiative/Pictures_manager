@@ -140,5 +140,10 @@ for prefix, urls_jpg_by_layer in urls_jpg_by_project.items():
                     for chunk in response.iter_content(chunk_size=8192):
                         f.write(chunk)
                 print(f'Downloaded {save_path}')
+
+                #Delete the file on the server
+                client.delete_files(url)
+                print(f'Deleted {url}')
             else:
                 print(f'Error downloading {url}')
+
