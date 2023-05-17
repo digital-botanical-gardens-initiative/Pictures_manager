@@ -145,7 +145,7 @@ for prefix, urls_jpg_by_layer in urls_jpg_by_project.items():
             project_id = None
             for project in projects:
                 if project['name'] == prefix:
-                    project_id = project['id']
+                    project_id = os.path.join('DCIM', project['id'], layer_name)
                     break
 
             if project_id:
