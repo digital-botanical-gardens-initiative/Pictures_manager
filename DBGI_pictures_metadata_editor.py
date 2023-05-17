@@ -41,7 +41,7 @@ for root, dirs, files in os.walk(pictures_folder):
             with open(csv_filename, 'r') as f:
                 reader = csv.DictReader(f)
                 for row in reader:
-                    if row['spl_code'] == unique_id:
+                    if row['sample_id'] == unique_id:
                         lon = row['latitude']
                         lat = row['longitude']
                         break
