@@ -2,6 +2,7 @@
 
 import subprocess
 from dotenv import load_dotenv
+import os
 
 #Loads environment variables
 load_dotenv()
