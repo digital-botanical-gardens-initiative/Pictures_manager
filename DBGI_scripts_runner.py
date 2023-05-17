@@ -13,9 +13,6 @@ script_inat = os.getenv('inat_script')
 # Run script 1
 subprocess.run(['python3', './DBGI_files_downloader.py']).check_returncode()
 
-# Rerun script 1 in case of downloads errors
-subprocess.run(['python3', './DBGI_files_downloader.py']).check_returncode()
-
 # Run script 2
 subprocess.run(['python3', './DBGI_CSV_creator.py']).check_returncode()
 
