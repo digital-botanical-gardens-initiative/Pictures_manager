@@ -145,12 +145,12 @@ for prefix, urls_jpg_by_layer in urls_jpg_by_project.items():
             project_id = None
             for project in projects:
                 if project['name'] == prefix:
-                    project_id = os.path.join('DCIM', project['id'], layer_name)
+                    project_id = project['id']
                     break
 
             if project_id:
                 # Delete the file on the server
-                file_to_delete = os.path.join(file_name)
+                file_to_delete = os.path.join('DCIM', layer_name, file_name)
                 client.delete_files(project_id=project_id, glob_patterns=[file_to_delete])
                 print(f'Deleted {file_to_delete}')
             else:
