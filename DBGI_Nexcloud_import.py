@@ -10,8 +10,8 @@ load_dotenv()
 #Access the environment variables
 local_path = os.getenv('out_jpg_path')
 local_path_csv = os.getenv('out_csv_path')
-remote_pic_path = os.getenv('nextcloud_path_pic')
-remote_csv_path = os.getenv('nextcloud_path_pic')
+remote_pic_path = os.getenv('next_folder_path_pic')
+remote_csv_path = os.getenv('next_folder_path_csv')
 
 # Iterate over the directory tree rooted at the input folder
 for root, dirs, files in os.walk(local_path):
