@@ -1,7 +1,7 @@
-# iNaturalist_uploader
+# Pictures manager script
 Takes pictures from a QFieldCloud server instance (self-hosted or commercial) and modifies the metadata to have an automatic iNaturalist import. It takes the sample sampling code and coordinates in the gpkg file of interest and adds it in the pictures metadata. Then, once uploaded to iNaturalist, it adds the sampling code as a tag and the coordinates to the observation.
 
-Prerequistie to make this code work:
+Prerequiste to make this code work:
 - Pictures have to contain the scientific name of the species, the sampling code and the point of view (if you take multiple pictures of a single plant, it can be either a descripition of the point of view or a number, in order to have unique pictures names) separated by a space or an underscore. This can be done automatically with QField application when taking a picture
 - gpkg have to have the columns x_coord that stores the x coordinate and the y_coord that stores the y coordinate. The CRS (Coordinates Reference System) is not important, the code detects it and converts it to EPSG:4326, that is the CRS used in iNaturalist
 - gpkg have to have the column sample_id that stores the sampling code (that has to be unique in order to have unique pictures names)
