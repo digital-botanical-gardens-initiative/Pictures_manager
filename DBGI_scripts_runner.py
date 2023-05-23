@@ -1,11 +1,6 @@
 #!/usr/bin/env python3
 
 import subprocess
-from dotenv import load_dotenv
-import os
-
-#Loads environment variables
-load_dotenv()
 
 # Run script 1
 subprocess.run(['python3', './DBGI_files_downloader.py']).check_returncode()
