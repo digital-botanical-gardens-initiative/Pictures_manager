@@ -79,12 +79,6 @@ vpn = VPNC(config={
     'server': vpn_server,
 })
 
-vpn.configure({
-    'username': vpn_user,
-    'password': vpn_pwd,
-    'IPSec_gateway': vpn_server,
-})
-
 # establish connections
 with vpn.vpn():
         conn1 = psycopg2.connect(
