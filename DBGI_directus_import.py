@@ -71,36 +71,36 @@ vpn_server=os.getenv('VPN_SERVER')
 
 
 #Add the VPN connection
-from vpncli import connectivity
+from vpnc import VPNC
 
-vpn = connectivity()
+vpn = VPNC(config={
+    'Xauth_username': vpn_user,
+    'Xauth_password': vpn_pwd,
+    'server': vpn_server,
+})
 
 vpn.configure({
     'username': vpn_user,
     'password': vpn_pwd,
-    'server': vpn_server,
+    'IPSec_gateway': vpn_server,
 })
 
-vpn.connect()
-
 # establish connections
+with vpn.vpn():
+        conn1 = psycopg2.connect(
+	        database="directus_dbgi",
+                user=usr,
+                password=pwd,
+                host='127.0.0.1',
+                port= '5432'
+                )
 
-conn1 = psycopg2.connect(
-	database="directus_dbgi",
-        user=usr,
-        password=pwd,
-        host='127.0.0.1',
-        port= '5432'
-        )
+        #conn1.autocommit = True
 
-#conn1.autocommit = True
+        # execute query
+        cursor = conn1.cursor()
+        cursor.execute(sql)
 
-# execute query
-cursor = conn1.cursor()
-cursor.execute(sql)
-
-# commit and close connection
-conn1.commit()
-conn1.close()
-
-vpn.diconnect()
+        # commit and close connection
+        conn1.commit()
+        conn1.close()
