@@ -76,7 +76,7 @@ from vpnc import VPNC
 vpn = VPNC(config={
     'Xauth_username': vpn_user,
     'Xauth_password': vpn_pwd,
-    'server': vpn_server,
+    'IPSec_gateway': vpn_server,
 })
 
 # establish connections
