@@ -24,6 +24,6 @@ subprocess.run(['python3', './DBGI_pictures_metadata_editor.py']).check_returnco
 subprocess.run(['python3', './DBGI_inat_formatter.py']).check_returncode()
 
 # Run script 8
-subprocess.run(['python3', './DBGI_Nexcloud_import.py']).check_returncode()
+subprocess.run(['python3', './DBGI_Nextcloud_import.py']).check_returncode()
 
 
