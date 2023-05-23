@@ -71,9 +71,9 @@ vpn_server=os.getenv('VPN_SERVER')
 
 
 #Add the VPN connection
-from vpncli import VPNClient
+from vpncli import connectivity
 
-vpn = VPNClient()
+vpn = connectivity()
 
 vpn.configure({
     'username': vpn_user,
