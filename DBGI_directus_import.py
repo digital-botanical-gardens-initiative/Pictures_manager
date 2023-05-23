@@ -77,7 +77,9 @@ vpn = VPNC(config={
     'Xauth_username': vpn_user,
     'Xauth_password': vpn_pwd,
     'IPSec_gateway': vpn_server,
-    'IPSec_ID': 'UNIFR'
+    'IPSec_ID': 'UNIFR',
+    'IPSec_secret':
+    'IKE_Authmode': 'psk',
 })
 
 # establish connections
