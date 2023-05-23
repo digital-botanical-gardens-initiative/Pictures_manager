@@ -66,7 +66,7 @@ load_dotenv()
 usr=os.getenv('DB_USR')
 pwd=os.getenv('DIRECTUS_PWD')
 vpn_user=os.getenv('VPN_USER')
-vpn_pwd=os.getenv('VPN_pwd')
+vpn_pwd=os.getenv('VPN_PWD')
 vpn_server=os.getenv('VPN_SERVER')
 
 
