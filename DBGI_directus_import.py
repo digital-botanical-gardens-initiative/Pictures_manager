@@ -65,7 +65,25 @@ load_dotenv()
 
 usr=os.getenv('DB_USR')
 pwd=os.getenv('DIRECTUS_PWD')
+vpn_provider=os.getenv('VPN_PROVIDER')
+vpn_user=os.getenv('VPN_USER')
+vpn_pwd=os.getenv('VPN_pwd')
+vpn_server=os.getenv('VPN_SERVER')
 
+
+#Add the VPN connection
+from pyvpn import VPN
+
+vpn = VPN()
+
+vpn.configure({
+    'vpn_provider': vpn_provider,
+    'username': vpn_user,
+    'password': vpn_pwd,
+    'server': vpn_server,
+})
+
+vpn.connect()
 
 # establish connections
 
@@ -86,3 +104,5 @@ cursor.execute(sql)
 # commit and close connection
 conn1.commit()
 conn1.close()
+
+vpn.diconnect()
