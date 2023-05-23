@@ -41,9 +41,9 @@ for root, dirs, files in os.walk(pictures_folder):
             with open(csv_filename, 'r') as f:
                 reader = csv.DictReader(f)
                 for row in reader:
-                    if row['spl_code'] == unique_id:
-                        lon = row['latitude']
-                        lat = row['longitude']
+                    if row['sample_id'] == unique_id:
+                        lon = row['longitude']
+                        lat = row['latitude']
                         break
                 else:
                      print(f"No coordinates found for {unique_id} in {csv_filename}")
@@ -60,7 +60,7 @@ for root, dirs, files in os.walk(pictures_folder):
             os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
             # Write metadata using exiftool
-            command = f"exiftool -Subject={unique_prefixed} -GPSLongitudeRef=East -XMP:GPSLongitude={lon} -GPSLatitudeRef=North -XMP:GPSLatitude={lat} {picture_path} -overwrite_original -o {output_path}"
+            command = f"exiftool -Subject={unique_prefixed} -EXIF:GPSLongitude*={lon} -EXIF:GPSLatitude*={lat} {picture_path} -overwrite_original -o {output_path}"
             subprocess.run(command, shell=True)
 
             print(f"Metadata written for {picture_path}")

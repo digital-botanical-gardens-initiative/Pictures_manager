@@ -47,7 +47,7 @@ def convert_csv_coordinates(csv_file_path, output_folder, root_folder):
 
     # Convert the coordinates using the pyproj library
     transformer = pyproj.Transformer.from_crs(in_crs, out_crs)
-    df['longitude'], df['latitude'] = transformer.transform(df['x_coord'].values, df['y_coord'].values)
+    df['latitude'], df['longitude'] = transformer.transform(df['x_coord'].values, df['y_coord'].values)
 
     # Extract the CRS from the output pyproj object and replace the original CRS in the output filename
     out_crs_str = out_crs.to_string()
