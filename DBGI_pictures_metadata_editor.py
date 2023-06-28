@@ -26,7 +26,7 @@ for root, dirs, files in os.walk(pictures_folder):
             picture_path = os.path.join(root, file)
 
             # Get unique identifier from picture name
-            unique_id = re.search(r"dbgi_[0-9]+", file).group()
+            unique_id = re.search(r"(dbgi|emi)_[0-9]{6}", file).group()
             unique_prefixed = 'emi_external_id:' + unique_id
 
             # Get corresponding CSV file
