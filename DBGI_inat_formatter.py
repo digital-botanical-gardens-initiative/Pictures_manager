@@ -24,7 +24,7 @@ os.makedirs(output_folder2, exist_ok=True)
 for file_path in glob.glob(os.path.join(output_folder, '**/*.jpg'), recursive=True):
     # Extract the unique identifier from the picture name
     file_name = os.path.basename(file_path)
-    unique_id = re.search(r"dbgi_\d+", file_name)
+    unique_id = re.search(r"(dbgi|emi)_\d+", file_name)
     if unique_id:
         unique_id = unique_id.group()
     else:
