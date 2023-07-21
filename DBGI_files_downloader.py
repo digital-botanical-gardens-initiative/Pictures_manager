@@ -37,7 +37,7 @@ for d in projects:
         elif key.startswith('name'):
             projects_names.append(value)
 
-#Define a function to download only points geopackages
+#Define a function to download only geopackages with geometry (skip lists and maps)
 def is_vector_gpkg(file_path):
     try:
         with fiona.open(file_path) as dataset:
@@ -50,7 +50,7 @@ def is_vector_gpkg(file_path):
             geometry_type = first_layer['geometry']['type']
             
             # If the geometry type is not 'None' (raster) and not 'Point', it's a vector GeoPackage
-            if geometry_type == 'Point':
+            if geometry_type is not None:
                 return True
             else:
                 return False
