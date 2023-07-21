@@ -6,6 +6,7 @@ import re
 import os
 import qfieldcloud_sdk
 from qfieldcloud_sdk import sdk
+import fiona
 
 #Loads environment variables
 load_dotenv()
@@ -36,6 +37,28 @@ for d in projects:
         elif key.startswith('name'):
             projects_names.append(value)
 
+#Define a function to download only points geopackages
+def is_vector_gpkg(file_path):
+    try:
+        with fiona.open(file_path) as dataset:
+            # Check if there are any layers in the GeoPackage
+            if len(dataset) == 0:
+                return False
+            
+            # Check the geometry type of the first layer
+            first_layer = next(iter(dataset))
+            geometry_type = first_layer['geometry']['type']
+            
+            # If the geometry type is not 'None' (raster) and not 'Point', it's a vector GeoPackage
+            if geometry_type == 'Point':
+                return True
+            else:
+                return False
+            
+    except Exception as e:
+        # Handle any exceptions, e.g., invalid GeoPackage files
+        return False
+
 #Constructs the gpkg urls
 base_url = API
 urls_gpkg_by_project = {}
@@ -46,7 +69,7 @@ for project in projects:
     project_urls = []
     for file in project_files:
         file_name = file['name']
-        if file_name.endswith('.gpkg'):
+        if file_name.endswith('.gpkg') and is_vector_gpkg(file_name):
             url = f"{base_url}{project_id}/{file_name}"
             project_urls.append(url)
     urls_gpkg_by_project[project_name] = project_urls
