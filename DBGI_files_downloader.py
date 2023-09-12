@@ -19,8 +19,14 @@ in_gpkg_path= os.getenv('in_gpkg_path')
 in_jpg_path= os.getenv('in_jpg_path')
 
 #Server connection
-client = sdk.Client(url=url, verify_ssl=False)
-credentials = client.login(username=username, password=password)
+#client = sdk.Client(url=url, verify_ssl=False)
+#credentials = client.login(username=username, password=password)
+
+try:
+    client = sdk.Client(url=url, verify_ssl=False)
+    credentials = client.login(username=username, password=password)
+except qfc_exceptions.QfcRequestException as e:
+    print(f"An error occurred: {e}")
 
 #Stores connection token
 auth_token = credentials['token']
