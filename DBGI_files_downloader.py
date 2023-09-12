@@ -21,12 +21,8 @@ in_jpg_path= os.getenv('in_jpg_path')
 #Server connection
 #client = sdk.Client(url=url, verify_ssl=False)
 #credentials = client.login(username=username, password=password)
-
-try:
-    client = sdk.Client(url=url, verify_ssl=False)
-    credentials = client.login(username=username, password=password)
-except:
-    print(f"An error occurred")
+client = sdk.Client(url=url, verify_ssl=False)
+credentials = client.login(username=username, password=password)
 
 #Stores connection token
 auth_token = credentials['token']
