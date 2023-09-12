@@ -25,8 +25,8 @@ in_jpg_path= os.getenv('in_jpg_path')
 try:
     client = sdk.Client(url=url, verify_ssl=False)
     credentials = client.login(username=username, password=password)
-except qfc_exceptions.QfcRequestException as e:
-    print(f"An error occurred: {e}")
+except:
+    print(f"An error occurred")
 
 #Stores connection token
 auth_token = credentials['token']
