@@ -136,7 +136,7 @@ for prefix, urls_jpg_by_layer in urls_jpg_by_project.items():
             save_path = os.path.join(save_dir, file_name)
 
             # Download the file
-            response = requests.get(url, headers={'Authorization': f'Token {auth_token}', 'Accept-Encoding': 'gzip, deflate, br'}, stream=True)
+            response = requests.get(url, headers={'Authorization': f'Token {auth_token}', 'Accept-Encoding': 'gzip, deflate, br'}, stream=True, verify=False)
             if response.status_code == 200:
                 with open(save_path, 'wb') as f:
                     for chunk in response.iter_content(chunk_size=8192):
