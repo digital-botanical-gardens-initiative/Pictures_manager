@@ -45,6 +45,6 @@ for root, dirs, files in os.walk(local_path_csv):
 print("Files moved successfully.")
 
 #Run the command to scan Nextcloud files, so that they are showed into Nextcloud
-scan_path = '/var/www/nextcloud'
-scan_command = 'sudo -u www-data php occ files:scan --all'
-subprocess.run(scan_command, shell=True, cwd=scan_path)
+#scan_path = '/var/www/nextcloud'
+#scan_command = 'sudo -u www-data php occ files:scan --all'
+#subprocess.run(scan_command, shell=True, cwd=scan_path)
