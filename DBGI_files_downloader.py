@@ -6,41 +6,6 @@ import re
 import os
 import qfieldcloud_sdk
 from qfieldcloud_sdk import sdk
-import warnings
-import contextlib
-from urllib3.exceptions import InsecureRequestWarning
-
-old_merge_environment_settings = requests.Session.merge_environment_settings
-
-@contextlib.contextmanager
-def no_ssl_verification():
-    opened_adapters = set()
-
-    def merge_environment_settings(self, url, proxies, stream, verify, cert):
-        # Verification happens only once per connection so we need to close
-        # all the opened adapters once we're done. Otherwise, the effects of
-        # verify=False persist beyond the end of this context manager.
-        opened_adapters.add(self.get_adapter(url))
-
-        settings = old_merge_environment_settings(self, url, proxies, stream, verify, cert)
-        settings['verify'] = False
-
-        return settings
-
-    requests.Session.merge_environment_settings = merge_environment_settings
-
-    try:
-        with warnings.catch_warnings():
-            warnings.simplefilter('ignore', InsecureRequestWarning)
-            yield
-    finally:
-        requests.Session.merge_environment_settings = old_merge_environment_settings
-
-        for adapter in opened_adapters:
-            try:
-                adapter.close()
-            except:
-                pass
 
 #Loads environment variables
 load_dotenv()
@@ -101,7 +66,7 @@ for prefix, urls_list in urls_gpkg_by_project.items():
     for url in urls_list:
         file_name = url.split('/')[-1]
         save_path = os.path.join(path_gpkg[prefix], file_name)
-        response = requests.get(url, headers={'Authorization': f'Token {auth_token}', 'Accept-Encoding': 'gzip, deflate, br'}, stream=True)
+        response = requests.get(url, headers={'Authorization': f'Token {auth_token}', 'Accept-Encoding': 'gzip, deflate, br'}, stream=True, verify=False)
         if response.status_code == 200:
             with open(save_path, 'wb') as f:
                 for chunk in response.iter_content(chunk_size=8192):
@@ -171,8 +136,7 @@ for prefix, urls_jpg_by_layer in urls_jpg_by_project.items():
             save_path = os.path.join(save_dir, file_name)
 
             # Download the file
-            with no_ssl_verification():
-                response = requests.get(url, headers={'Authorization': f'Token {auth_token}', 'Accept-Encoding': 'gzip, deflate, br'}, stream=True, verify=False, )
+            response = requests.get(url, headers={'Authorization': f'Token {auth_token}', 'Accept-Encoding': 'gzip, deflate, br'}, stream=True, verify=False, )
             if response.status_code == 200:
                 with open(save_path, 'wb') as f:
                     for chunk in response.iter_content(chunk_size=8192):
