@@ -38,8 +38,9 @@ for root, dirs, files in os.walk(out_csv_path):
         if filename.endswith('.csv'):
                 constructed_path = root + "/" + filename
                 df = pd.read_csv(constructed_path)
-                records = df.to_json(orient="records")
-                print(records)
+                print(df)
+                #records = df.to_json(orient="records")
+                #print(records)
                 #data = {'field_sample_id': df.sample,
                         #'sample_name': df.sample,
                         #'pictures': df.sample,
