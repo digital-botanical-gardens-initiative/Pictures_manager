@@ -38,12 +38,12 @@ for root, dirs, files in os.walk(out_csv_path):
         if filename.endswith('.csv'):
                 constructed_path = root + "/" + filename
                 df = pd.read_csv(constructed_path)
-                data = {'field_sample_id': df['sample_id'],
-                        'sample_name': df['sample_id'],
-                        'pictures': df['sample_id'],
-                        'x_coord': df['sample_id'],
-                        'y_coord': df['sample_id'],
-                        'ipen': df['sample_id']}
+                data = {'field_sample_id': df[1],
+                        'sample_name': df[0],
+                        'pictures': df[2],
+                        'x_coord': df[6],
+                        'y_coord': df[7],
+                        'ipen': df[8]}
                 print(data)
                 #response = session.post(url=collection_url, headers=headers, json=data)
                 #print(response.status_code)
