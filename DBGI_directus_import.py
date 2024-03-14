@@ -37,7 +37,7 @@ for root, dirs, files in os.walk(out_csv_path):
     for filename in files:
         if filename.endswith('.csv'):
                 print(out_csv_path)
-                constructed_path = out_csv_path + "/" + root + "/" + filename
+                constructed_path = root + "/" + filename
                 df = pd.read_csv(constructed_path)
                 print(df)
                 #data = {'field_sample_id': id,
