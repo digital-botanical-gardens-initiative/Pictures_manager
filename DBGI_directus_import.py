@@ -38,8 +38,8 @@ for root, dirs, files in os.walk(out_csv_path):
         if filename.endswith('.csv'):
                 constructed_path = root + "/" + filename
                 df = pd.read_csv(constructed_path)
-                #df['field_sample_id']=df[1]
-                print(df[1])
+                df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
+                print(df[2:8,])
                 #records = df.to_json(orient="records")
                 #print(records)
                 #data = {'field_sample_id': df.sample,
