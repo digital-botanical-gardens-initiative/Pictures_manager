@@ -36,7 +36,7 @@ out_csv_path = os.getenv('out_csv_path')
 for root, dirs, files in os.walk(out_csv_path):
     for filename in files:
         if filename.endswith('.csv'):
-                constructed_path = out_csv_path + "/" + filename
+                constructed_path = out_csv_path + "/" + dirs + "/" + filename
                 df = pd.read_csv(constructed_path)
                 print(df)
                 #data = {'field_sample_id': id,
