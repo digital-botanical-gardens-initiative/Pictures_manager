@@ -36,17 +36,15 @@ out_csv_path = os.getenv('out_csv_path')
 for root, dirs, files in os.walk(out_csv_path):
     for filename in files:
         if filename.endswith('.csv'):
-                print(out_csv_path)
                 constructed_path = root + "/" + filename
                 df = pd.read_csv(constructed_path)
-                print(df)
-                #data = {'field_sample_id': id,
-                        #'sample_name': first_identification,
-                        #'pictures': other_identifications,
-                        #'x_coord': comments_string,
-                        #'y_coord': observation_url,
-                        #'ipen': ipen}
-                #print(data)
+                data = {'field_sample_id': df['sample_id'],
+                        'sample_name': df['sample_id'],
+                        'pictures': df['sample_id'],
+                        'x_coord': df['sample_id'],
+                        'y_coord': df['sample_id'],
+                        'ipen': df['sample_id']}
+                print(data)
                 #response = session.post(url=collection_url, headers=headers, json=data)
                 #print(response.status_code)
                 #if response.status_code != 200:
