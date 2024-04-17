@@ -36,23 +36,25 @@ out_csv_path = os.getenv('out_csv_path')
 for root, dirs, files in os.walk(out_csv_path):
     for filename in files:
         if filename.endswith('.csv') and filename != "SBL_20004_2022_EPSG:4326.csv":
-            constructed_path = os.path.join(root, filename)
-            df = pd.read_csv(constructed_path)
-            treated_df = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen']]
-            treated_df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
-            for index, row in treated_df.iterrows():
-                if pd.notna(row["field_sample_id"]):
-                    data = {
-                        'field_sample_id': row["field_sample_id"],
-                        'sample_name': row["sample_name"],
-                        'latitude': row["latitude"],
-                        'longitude': row["longitude"]
-                    }
-                    response = session.post(url=collection_url, headers=headers, json=data)
-                    print(response.status_code)
-                    if response.status_code != 200:
-                        collection_url_patch = f"{collection_url}/{row['field_sample_id']}"
-                        response = session.patch(url=collection_url_patch, headers=headers, json=data)
+                constructed_path = root + "/" + filename
+                df = pd.read_csv(constructed_path)
+                treated_df = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen']]
+                treated_df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
+                data_cleaned = {k: v if pd.notna(v) else None for k, v in treated_df.iterrows()}
+                for index, row in data_cleaned.iterrows():
+                     if row["field_sample_id"] != None:
+                        data = {'field_sample_id': row["field_sample_id"],
+                                'sample_name': row["sample_name"],
+                                'latitude': row["latitude"],
+                                'longitude': row["longitude"]}
+                        response = session.post(url=collection_url, headers=headers, json=data)
                         print(response.status_code)
-                else:
-                    print("grec!!")
+                        if response.status_code != 200:
+                                collection_url_patch = collection_url + row["field_sample_id"]
+                                response = session.patch(url=collection_url_patch, headers=headers, json=data)
+                                print(response.status_code)
+                        else:
+                                print("grec?!")
+                     else:
+                           print("grec!!")   
+
