@@ -41,11 +41,11 @@ for root, dirs, files in os.walk(out_csv_path):
                 treated_df = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen']]
                 treated_df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
                 for index, row in treated_df.iterrows():
-                     data = {'field_sample_id': row["field_sample_id"][index],
-                             'sample_name': row["sample_name"][index],
-                             'latitude': row["latitude"][index],
-                             'longitude': row["longitude"][index],
-                             'ipen': row["ipen"][index]}
+                     data = {'field_sample_id': row["field_sample_id"],
+                             'sample_name': row["sample_name"],
+                             'latitude': row["latitude"],
+                             'longitude': row["longitude"],
+                             'ipen': row["ipen"]}
                      print(data)
                      response = session.post(url=collection_url, headers=headers, json=data)
                      print(response.status_code)
