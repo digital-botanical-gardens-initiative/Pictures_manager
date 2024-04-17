@@ -40,8 +40,9 @@ for root, dirs, files in os.walk(out_csv_path):
                 df = pd.read_csv(constructed_path)
                 treated_df = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen']]
                 treated_df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
-                for index, row in treated_df.iterrows():
-                     if row["field_sample_id"] != "nan":
+                data_cleaned = {k: v if pd.notna(v) else "" for k, v in treated_df.items()}
+                for index, row in data_cleaned.iterrows():
+                     if row["field_sample_id"] != "":
                         data = {'field_sample_id': row["field_sample_id"],
                                 'sample_name': row["sample_name"],
                                 'latitude': row["latitude"],
