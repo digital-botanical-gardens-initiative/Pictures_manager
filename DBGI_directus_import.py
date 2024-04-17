@@ -41,7 +41,7 @@ for root, dirs, files in os.walk(out_csv_path):
                 treated_df = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen']]
                 treated_df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
                 for index, row in treated_df.iterrows():
-                     if row["field_sample_id"] != "nan"
+                     if row["field_sample_id"] != "nan":
                         data = {'field_sample_id': row["field_sample_id"],
                                 'sample_name': row["sample_name"],
                                 'latitude': row["latitude"],
@@ -52,6 +52,8 @@ for root, dirs, files in os.walk(out_csv_path):
                                 collection_url_patch = collection_url + row["field_sample_id"]
                                 response = session.patch(url=collection_url_patch, headers=headers, json=data)
                                 print(response.status_code)
-                else:
-                     print("grec?!")
+                        else:
+                                print("grec?!")
+                     else:
+                           print("grec!!")   
 
