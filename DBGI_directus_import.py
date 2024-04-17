@@ -35,9 +35,10 @@ out_csv_path = os.getenv('out_csv_path')
 # Iterate over all CSV files in the input folder and its subdirectories
 for root, dirs, files in os.walk(out_csv_path):
     for filename in files:
-        if filename.endswith('.csv') and filename != "SBL_20004_2022":
+        if filename.endswith('.csv') and filename != "SBL_20004_2022.csv":
                 constructed_path = root + "/" + filename
                 df = pd.read_csv(constructed_path)
+                print(df)
                 selected_columns = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen']]
                 selected_columns.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
                 print(selected_columns)
