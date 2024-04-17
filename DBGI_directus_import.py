@@ -38,6 +38,7 @@ for root, dirs, files in os.walk(out_csv_path):
         if filename.endswith('.csv') and filename != "SBL_20004_2022.csv":
                 constructed_path = root + "/" + filename
                 df = pd.read_csv(constructed_path)
+                print(filename)
                 print(df)
                 selected_columns = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen']]
                 selected_columns.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
