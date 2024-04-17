@@ -41,10 +41,11 @@ for root, dirs, files in os.walk(out_csv_path):
                 df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen']]
                 df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
                 records = df.to_json(orient="records")
+                print(records)
                 response = session.post(url=collection_url, headers=headers, json=records)
                 print(response.status_code)
-                if response.status_code != 200:
-                        collection_url_patch = base_url + '/items/QField_Data/' + df["field_sample_id"]
-                        response = session.patch(url=collection_url_patch, headers=headers, json=data)
-                        print(response.status_code)
+                #if response.status_code != 200:
+                        #collection_url_patch = base_url + '/items/QField_Data/' + df["field_sample_id"]
+                        #response = session.patch(url=collection_url_patch, headers=headers, json=data)
+                        #print(response.status_code)
 
