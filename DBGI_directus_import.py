@@ -40,12 +40,16 @@ for root, dirs, files in os.walk(out_csv_path):
                 df = pd.read_csv(constructed_path)
                 treated_df = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen']]
                 treated_df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
-                print(treated_df)
-                records = treated_df.to_json(orient="records")
-                response = session.post(url=collection_url, headers=headers, json=records)
-                print(response.status_code)
-                #if response.status_code != 200:
-                        #collection_url_patch = base_url + '/items/QField_Data/' + df["field_sample_id"]
-                        #response = session.patch(url=collection_url_patch, headers=headers, json=data)
-                        #print(response.status_code)
+                for index, row in treated_df.iterrows():
+                     data = {'field_sample_id': row["field_sample_id"],
+                             'sample_name': row["sample_name"],
+                             'latitude': row["latitude"],
+                             'longitude': row["longitude"],
+                             'ipen': row["ipen"]}
+                     response = session.post(url=collection_url, headers=headers, json=data)
+                     print(response.status_code)
+                     if response.status_code != 200:
+                        collection_url_patch = collection_url + df["field_sample_id"]
+                        response = session.patch(url=collection_url_patch, headers=headers, json=data)
+                        print(response.status_code)
 
