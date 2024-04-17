@@ -50,6 +50,6 @@ for root, dirs, files in os.walk(out_csv_path):
                      print(response.status_code)
                      if response.status_code != 200:
                         collection_url_patch = collection_url + df["field_sample_id"]
-                        response = session.patch(url=collection_url_patch, headers=headers, json=data)
+                        response = session.patch(url=collection_url_patch, headers=headers, data=data)
                         print(response.status_code)
 
