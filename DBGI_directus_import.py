@@ -38,24 +38,13 @@ for root, dirs, files in os.walk(out_csv_path):
         if filename.endswith('.csv') and filename != "SBL_20004_2022_EPSG:4326.csv":
                 constructed_path = root + "/" + filename
                 df = pd.read_csv(constructed_path)
-                print(filename)
-                print(df)
-                selected_columns = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen']]
-                selected_columns.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
-                print(selected_columns)
-                #records = df.to_json(orient="records")
-                #print(records)
-                #data = {'field_sample_id': df.sample,
-                        #'sample_name': df.sample,
-                        #'pictures': df.sample,
-                        #'x_coord': df.sample,
-                        #'y_coord': df.sample,
-                        #'ipen': df.sample}
-                #print(data)
-                #response = session.post(url=collection_url, headers=headers, json=data)
-                #print(response.status_code)
-                #if response.status_code != 200:
-                        #collection_url_patch = base_url + '/items/QField_Data/' + id
-                        #response = session.patch(url=collection_url_patch, headers=headers, json=data)
-                        #print(response.status_code)
+                df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen']]
+                df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
+                records = df.to_json(orient="records")
+                response = session.post(url=collection_url, headers=headers, json=records)
+                print(response.status_code)
+                if response.status_code != 200:
+                        collection_url_patch = base_url + '/items/QField_Data/' + df["field_sample_id"]
+                        response = session.patch(url=collection_url_patch, headers=headers, json=data)
+                        print(response.status_code)
 
