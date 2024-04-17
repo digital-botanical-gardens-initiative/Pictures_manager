@@ -44,8 +44,7 @@ for root, dirs, files in os.walk(out_csv_path):
                      data = {'field_sample_id': row["field_sample_id"],
                              'sample_name': row["sample_name"],
                              'latitude': row["latitude"],
-                             'longitude': row["longitude"],
-                             'ipen': row["ipen"]}
+                             'longitude': row["longitude"]}
                      print(data)
                      response = session.post(url=collection_url, headers=headers, data=data)
                      print(response.status_code)
