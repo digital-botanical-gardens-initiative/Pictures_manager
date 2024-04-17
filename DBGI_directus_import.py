@@ -38,9 +38,9 @@ for root, dirs, files in os.walk(out_csv_path):
         if filename.endswith('.csv') and filename != "SBL_20004_2022_EPSG:4326.csv":
                 constructed_path = root + "/" + filename
                 df = pd.read_csv(constructed_path)
-                df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen']]
-                df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
-                records = df.to_json(orient="records")
+                treated_df = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen']]
+                treated_df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
+                records = treated_df.to_json(orient="records")
                 print(records)
                 response = session.post(url=collection_url, headers=headers, json=records)
                 print(response.status_code)
