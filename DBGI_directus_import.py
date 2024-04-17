@@ -52,4 +52,6 @@ for root, dirs, files in os.walk(out_csv_path):
                                 collection_url_patch = collection_url + row["field_sample_id"]
                                 response = session.patch(url=collection_url_patch, headers=headers, json=data)
                                 print(response.status_code)
+                else:
+                     print("grec?!")
 
