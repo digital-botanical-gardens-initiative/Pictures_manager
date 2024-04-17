@@ -46,10 +46,10 @@ for root, dirs, files in os.walk(out_csv_path):
                              'latitude': row["latitude"],
                              'longitude': row["longitude"]}
                      print(data)
-                     response = session.post(url=collection_url, headers=headers, data=data)
+                     response = session.post(url=collection_url, headers=headers, json=data)
                      print(response.status_code)
                      if response.status_code != 200:
                         collection_url_patch = collection_url + row["field_sample_id"]
-                        response = session.patch(url=collection_url_patch, headers=headers, data=data)
+                        response = session.patch(url=collection_url_patch, headers=headers, json=data)
                         print(response.status_code)
 
