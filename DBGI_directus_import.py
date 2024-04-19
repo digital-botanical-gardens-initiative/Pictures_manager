@@ -41,6 +41,7 @@ for root, dirs, files in os.walk(out_csv_path):
                 treated_df = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen']]
                 treated_df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
                 treated_df.fillna('', inplace=True)
+                print(treated_df)
                 for index, row in treated_df.iterrows():
                      if row["field_sample_id"] != None:
                         data = {'field_sample_id': row["field_sample_id"],
