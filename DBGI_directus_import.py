@@ -56,7 +56,7 @@ for root, dirs, files in os.walk(out_csv_path):
                                 'latitude': row["latitude"],
                                 'longitude': row["longitude"],
                                 'ipen': row["ipen"],
-                                'herbivory_percent': int(row["herbivory_(percent)"]),
+                                #'herbivory_percent': float(row["herbivory_(percent)"]),
                                 'comment_eco': row["comment_eco"],
                                 'soil_type': row["soil_type"],
                                 'weather': row["weather"],
