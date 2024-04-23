@@ -45,10 +45,11 @@ for root, dirs, files in os.walk(out_csv_path):
                 for index, row in treated_df.iterrows():
                      if row["field_sample_id"] != '':
                         if row["no_name_on_list"] == "":
-                              row.rename(columns={'sample_name':'field_sample_name'}, inplace=True)
+                              field_sample_name = row["sample_name"]
                         else:
-                              row.rename(columns={'name_proposition':'field_sample_name'}, inplace=True)
+                              field_sample_name = row["name_proposition"]
                               print(row["no_name_on_list"])
+                              print(field_sample_name)
                         data = {'field_sample_id_pk': row["field_sample_id"],
                                 'field_sample_id_fk': row["field_sample_id"],
                                 'field_sample_name': row["field_sample_name"],
