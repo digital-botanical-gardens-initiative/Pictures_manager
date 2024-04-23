@@ -45,9 +45,9 @@ for root, dirs, files in os.walk(out_csv_path):
                 for index, row in treated_df.iterrows():
                      if row["field_sample_id"] != '':
                         if row["no_name_on_list"] == "":
-                              treated_df.rename(columns={'sample_name':'field_sample_name'}, inplace=True)
+                              row.rename(columns={'sample_name':'field_sample_name'}, inplace=True)
                         else:
-                              treated_df.rename(columns={'name_proposition':'field_sample_name'}, inplace=True)
+                              row.rename(columns={'name_proposition':'field_sample_name'}, inplace=True)
                               print(row["no_name_on_list"])
                         data = {'field_sample_id_pk': row["field_sample_id"],
                                 'field_sample_id_fk': row["field_sample_id"],
