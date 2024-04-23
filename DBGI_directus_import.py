@@ -39,16 +39,17 @@ for root, dirs, files in os.walk(out_csv_path):
                 constructed_path = root + "/" + filename
                 df = pd.read_csv(constructed_path)
                 treated_df = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen', 'no_name_on_list', 'name_proposition', 'herbivory_(percent)', 'comment_eco', 'soil_type', 'weather', 'temperature_(°C)', 'comment_env']]
+                treated_df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
                 treated_df.fillna('', inplace=True)
                 print(treated_df)
                 for index, row in treated_df.iterrows():
                      if row["field_sample_id"] != '':
                         if row["no_name_on_list"] == 0:
-                              treated_df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
+                              treated_df.rename(columns={'sample_name':'field_sample_name'}, inplace=True)
                         elif row["no_name_on_list"] == 1:
-                              treated_df.rename(columns={'name_proposition':'field_sample_id'}, inplace=True)
+                              treated_df.rename(columns={'name_proposition':'field_sample_name'}, inplace=True)
                         data = {'field_sample_id': row["field_sample_id"],
-                                'sample_name': row["sample_name"],
+                                'field_sample_name': row["field_sample_name"],
                                 'latitude': row["latitude"],
                                 'longitude': row["longitude"],
                                 'ipen': row["ipen"],
