@@ -48,16 +48,17 @@ for root, dirs, files in os.walk(out_csv_path):
                               treated_df.rename(columns={'sample_name':'field_sample_name'}, inplace=True)
                         elif row["no_name_on_list"] == 1:
                               treated_df.rename(columns={'name_proposition':'field_sample_name'}, inplace=True)
-                        data = {'field_sample_id': row["field_sample_id"],
+                        data = {'field_sample_id_pk': row["field_sample_id"],
+                                'field_sample_id_fk': row["field_sample_id"],
                                 'field_sample_name': row["field_sample_name"],
                                 'latitude': row["latitude"],
                                 'longitude': row["longitude"],
                                 'ipen': row["ipen"],
-                                'herbivory_(percent)': row["herbivory_(percent)"],
+                                'herbivory_percent': row["herbivory_(percent)"],
                                 'comment_eco': row["comment_eco"],
                                 'soil_type': row["soil_type"],
                                 'weather': row["weather"],
-                                'temperature_(°C)': row["temperature_(°C)"],
+                                'temperature_celsius': row["temperature_(°C)"],
                                 'comment_env': row["comment_env"]}
                         
                         response = session.post(url=collection_url, headers=headers, json=data)
@@ -68,6 +69,7 @@ for root, dirs, files in os.walk(out_csv_path):
                                 print(response.status_code)
                         else:
                                 print("error loading data")
+                                print(row["field_sample_id"])
                      else:
                            print("no field sample id")   
 
