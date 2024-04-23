@@ -71,7 +71,7 @@ for root, dirs, files in os.walk(pictures_folder):
             os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
             # Write metadata using exiftool
-            command = f"exiftool -Subject={unique_prefixed} -EXIF:GPSLongitude*={lon} -EXIF:GPSLatitude*={lat} {picture_path} -overwrite_original -o {output_path}"
+            command = f"./exiftool -Subject={unique_prefixed} -EXIF:GPSLongitude*={lon} -EXIF:GPSLatitude*={lat} {picture_path} -overwrite_original -o {output_path}"
             subprocess.run(command, shell=True)
 
             print(f"Metadata written for {picture_path}")
