@@ -41,7 +41,6 @@ for root, dirs, files in os.walk(out_csv_path):
                 treated_df = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen', 'no_name_on_list', 'name_proposition', 'herbivory_(percent)', 'comment_eco', 'soil_type', 'weather', 'temperature_(°C)', 'comment_env']]
                 treated_df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
                 treated_df.fillna('', inplace=True)
-                print(treated_df)
                 for index, row in treated_df.iterrows():
                      if row["field_sample_id"] != '':
                         if row["no_name_on_list"] == "":
@@ -64,14 +63,11 @@ for root, dirs, files in os.walk(out_csv_path):
                                 'comment_env': row["comment_env"]}
                         
                         response = session.post(url=collection_url, headers=headers, json=data)
-                        print(response.status_code)
                         if response.status_code != 200:
                                 collection_url_patch = collection_url + row["field_sample_id"]
                                 response = session.patch(url=collection_url_patch, headers=headers, json=data)
-                                print(response.status_code)
-                        else:
-                                print("error loading data")
-                                print(row["field_sample_id"])
+                                if response.status_code != 200:
+                                      print(row["field_sample_id"])
                      else:
                            print("no field sample id")   
 
