@@ -24,9 +24,9 @@ subprocess.run(['python3', '/softwares/Pictures_manager/DBGI_pictures_size_contr
 subprocess.run(['python3', '/softwares/Pictures_manager/DBGI_pictures_metadata_editor.py']).check_returncode()
 
 # Run script 8
-#subprocess.run(['python3', '/softwares/Pictures_manager/DBGI_inat_formatter.py']).check_returncode()
+subprocess.run(['python3', '/softwares/Pictures_manager/DBGI_inat_formatter.py']).check_returncode()
 
 # Run script 9
-#subprocess.run(['python3', '/softwares/Pictures_manager/DBGI_Nextcloud_import.py']).check_returncode()
+subprocess.run(['python3', '/softwares/Pictures_manager/DBGI_Nextcloud_import.py']).check_returncode()
 
 

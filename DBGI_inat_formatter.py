@@ -5,6 +5,7 @@ import os
 import shutil
 import glob
 import re
+import requests
 
 #Loads environment variables
 load_dotenv()
@@ -20,11 +21,21 @@ output_folder2 = out_jpg_path2
 #Create the target folder if it doesn't exist
 os.makedirs(output_folder2, exist_ok=True)
 
+# Request to directus to obtain projects codes
+collection_url = "http://directus.dbgi.org/items/EMI_codes"
+column = 'emi_code'
+params = {'sort[]': f'{column}'}
+session = requests.Session()
+response = session.get(collection_url, params=params)
+data = response.json()['data']
+project_names = [item[column] for item in data]
+pattern = "(" + "|".join(project_names) + ")_\d+"
+
 # Loop over the pictures in the source folder and its subfolders
 for file_path in glob.glob(os.path.join(output_folder, '**/*.jpg'), recursive=True):
     # Extract the unique identifier from the picture name
     file_name = os.path.basename(file_path)
-    unique_id = re.search(r"(dbgi|emi)_\d+", file_name)
+    unique_id = re.search(pattern, file_name)
     if unique_id:
         unique_id = unique_id.group()
     else:
