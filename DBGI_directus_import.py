@@ -69,6 +69,7 @@ for root, dirs, files in os.walk(out_csv_path):
                                 if response.status_code != 200:
                                       print(row["field_sample_id"])
                                       print(response.status_code)
+                                      print(filename)
                      else:
                            print("no field sample id")   
 
