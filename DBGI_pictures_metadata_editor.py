@@ -29,7 +29,6 @@ response = session.get(collection_url, params=params)
 data = response.json()['data']
 project_names = [item[column] for item in data]
 pattern = "(" + "|".join(project_names) + ")_[0-9]{6}"
-print(pattern)
 
 # Loop over pictures
 for root, dirs, files in os.walk(pictures_folder):
