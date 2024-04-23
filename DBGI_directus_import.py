@@ -43,7 +43,7 @@ for root, dirs, files in os.walk(out_csv_path):
                 treated_df.fillna('', inplace=True)
                 for index, row in treated_df.iterrows():
                      if row["field_sample_id"] != '':
-                        if row["no_name_on_list"] == "":
+                        if row["no_name_on_list"] != 1 | row["no_name_on_list"] != 1.0:
                               field_sample_name = row["sample_name"]
                         else:
                               field_sample_name = row["name_proposition"]
@@ -68,6 +68,7 @@ for root, dirs, files in os.walk(out_csv_path):
                                 response = session.patch(url=collection_url_patch, headers=headers, json=data)
                                 if response.status_code != 200:
                                       print(row["field_sample_id"])
+                                      print(response.status_code)
                      else:
                            print("no field sample id")   
 
