@@ -36,13 +36,13 @@ out_csv_path = os.getenv('out_csv_path')
 for root, dirs, files in os.walk(out_csv_path):
     for filename in files:
         if filename.endswith('.csv') and filename != "SBL_20004_2022_EPSG:4326.csv":
+                print(filename)
                 constructed_path = root + "/" + filename
                 df = pd.read_csv(constructed_path)
                 treated_df = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen', 'no_name_on_list', 'name_proposition', 'herbivory_(percent)', 'comment_eco', 'soil_type', 'weather', 'temperature_(°C)', 'comment_env']]
                 treated_df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
                 treated_df["field_sample_id"] = treated_df["field_sample_id"].str.strip()
                 treated_df.fillna('', inplace=True)
-                print(filename)
                 for index, row in treated_df.iterrows():
                      if row["field_sample_id"] != '':
                         if row["no_name_on_list"] != 1 or row["no_name_on_list"] != 1.0:
