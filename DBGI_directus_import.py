@@ -42,6 +42,7 @@ for root, dirs, files in os.walk(out_csv_path):
                 treated_df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
                 treated_df["field_sample_id"] = treated_df["field_sample_id"].str.strip()
                 treated_df.fillna('', inplace=True)
+                print(filename)
                 for index, row in treated_df.iterrows():
                      if row["field_sample_id"] != '':
                         if row["no_name_on_list"] != 1 or row["no_name_on_list"] != 1.0:
