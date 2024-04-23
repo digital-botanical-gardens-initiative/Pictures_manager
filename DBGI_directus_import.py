@@ -51,7 +51,7 @@ for root, dirs, files in os.walk(out_csv_path):
                               print(field_sample_name)
                         data = {'field_sample_id_pk': row["field_sample_id"],
                                 'field_sample_id_fk': row["field_sample_id"],
-                                'field_sample_name': field_sample_name,
+                                #'field_sample_name': field_sample_name,
                                 'latitude': row["latitude"],
                                 'longitude': row["longitude"],
                                 'ipen': row["ipen"],
