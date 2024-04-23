@@ -56,11 +56,11 @@ for root, dirs, files in os.walk(out_csv_path):
                                 'latitude': row["latitude"],
                                 'longitude': row["longitude"],
                                 'ipen': row["ipen"],
-                                'herbivory_percent': row["herbivory_(percent)"],
+                                #'herbivory_percent': row["herbivory_(percent)"],
                                 'comment_eco': row["comment_eco"],
                                 'soil_type': row["soil_type"],
                                 'weather': row["weather"],
-                                #'temperature_celsius': row["temperature_(°C)"],
+                                'temperature_celsius': row["temperature_(°C)"],
                                 'comment_env': row["comment_env"]}
                         
                         response = session.post(url=collection_url, headers=headers, json=data)
