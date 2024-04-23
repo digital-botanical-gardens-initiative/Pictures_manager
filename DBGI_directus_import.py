@@ -43,7 +43,7 @@ for root, dirs, files in os.walk(out_csv_path):
                 treated_df.fillna('', inplace=True)
                 for index, row in treated_df.iterrows():
                      if row["field_sample_id"] != '':
-                        if row["no_name_on_list"] != 1 | row["no_name_on_list"] != 1.0:
+                        if row["no_name_on_list"] != 1 or row["no_name_on_list"] != 1.0:
                               field_sample_name = row["sample_name"]
                         else:
                               field_sample_name = row["name_proposition"]
