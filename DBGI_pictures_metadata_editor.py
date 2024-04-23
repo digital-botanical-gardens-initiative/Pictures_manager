@@ -5,6 +5,7 @@ import os
 import subprocess
 import csv
 import re
+import requests
 
 #Loads environment variables
 load_dotenv()
@@ -19,6 +20,17 @@ pictures_folder = in_jpg_path
 csv_folder = out_csv_path
 output_folder = out_jpg_path
 
+# Request to directus to obtain projects codes
+collection_url = "http://directus.dbgi.org/items/EMI_codes"
+column = 'emi_code'
+params = {'sort[]': f'{column}'}
+session = requests.Session()
+response = session.get(collection_url, params=params)
+data = response.json()['data']
+project_names = [item[column] for item in data]
+pattern = "(" + "|".join(project_names) + ")_[0-9]{6}"
+print(pattern)
+
 # Loop over pictures
 for root, dirs, files in os.walk(pictures_folder):
     for file in files:
@@ -26,7 +38,7 @@ for root, dirs, files in os.walk(pictures_folder):
             picture_path = os.path.join(root, file)
 
             # Get unique identifier from picture name
-            unique_id = re.search(r"(dbgi|emi)_[0-9]{6}", file).group()
+            unique_id = re.search(pattern, file).group()
             unique_prefixed = 'emi_external_id:' + unique_id
 
             # Get corresponding CSV file
