@@ -23,7 +23,7 @@ response = session.post(login_url, json={'email': directus_email, 'password': di
 data = response.json()['data']
 directus_access_token = data['access_token']
 collection_url = base_url + '/items/Qfield_Data/'
-collection_url_obs = base_url + '/items/Qfield_Data_Obs'
+collection_url_obs = base_url + '/items/Qfield_Data_Obs/'
 session.headers.update({'Authorization': f'Bearer {directus_access_token}'})
 
 #Add headers
@@ -69,17 +69,17 @@ for root, dirs, files in os.walk(out_csv_path):
 
                               # Check if success, if not try modifying the data to update already existing observations
                               if response.status_code != 200:
-                                          # Modify url to target the correct observation
-                                          collection_url_patch = collection_url_obs + str(row["latitude"])
-                                          # Request
-                                          response = session.patch(url=collection_url_patch, headers=headers, json=data)
-                                          # If still not success response, print informations on the sample.
-                                          # Should be replaced by an other directus request to have a track of unsuccessful import elsewhere than in the log.
-                                          if response.status_code != 200:
-                                                print(field_sample_name)
-                                                print(response.status_code)
-                                                print(filename)
-                                                print(response.json())
+                                    # Modify url to target the correct observation
+                                    collection_url_patch = collection_url_obs + str(row["latitude"])
+                                    # Request
+                                    response = session.patch(url=collection_url_patch, headers=headers, json=data)
+                                    # If still not success response, print informations on the sample.
+                                    # Should be replaced by an other directus request to have a track of unsuccessful import elsewhere than in the log.
+                                    if response.status_code != 200:
+                                          print(field_sample_name)
+                                          print(response.status_code)
+                                          print(filename)
+                                          print(response.json())
                   else:
                         # Homogeneize data for directus import
                         treated_df = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen', 'no_name_on_list', 'name_proposition', 'herbivory_(percent)', 'comment_eco', 'soil_type', 'weather', 'temperature_(°C)', 'comment_env']]
@@ -116,16 +116,16 @@ for root, dirs, files in os.walk(out_csv_path):
 
                                     # Check if success, if not try modifying the data to update already existing observations
                                     if response.status_code != 200:
-                                                # Modify url to target the correct observation
-                                                collection_url_patch = collection_url + row["field_sample_id"]
-                                                # Request
-                                                response = session.patch(url=collection_url_patch, headers=headers, json=data)
-                                                # If still not success response, print informations on the sample.
-                                                # Should be replaced by an other directus request to have a track of unsuccessful import elsewhere than in the log.
-                                                if response.status_code != 200:
-                                                      print(row["field_sample_id"])
-                                                      print(response.status_code)
-                                                      print(filename)
+                                          # Modify url to target the correct observation
+                                          collection_url_patch = collection_url + row["field_sample_id"]
+                                          # Request
+                                          response = session.patch(url=collection_url_patch, headers=headers, json=data)
+                                          # If still not success response, print informations on the sample.
+                                          # Should be replaced by an other directus request to have a track of unsuccessful import elsewhere than in the log.
+                                          if response.status_code != 200:
+                                                print(row["field_sample_id"])
+                                                print(response.status_code)
+                                                print(filename)
                               else:
                                     print("no field sample id")
 
