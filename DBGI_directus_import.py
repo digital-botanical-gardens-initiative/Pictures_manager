@@ -42,14 +42,14 @@ for root, dirs, files in os.walk(out_csv_path):
                   constructed_path = root + "/" + filename
                   df = pd.read_csv(constructed_path)
                   if filename.endswith("_obs_EPSG:4326.csv"):
-                        treated_df = df.loc[:, ['sample_name', 'latitude', 'longitude', 'ipen', 'no_name_on_list', 'name_proposition', 'herbivory_(percent)', 'comment_eco', 'soil_type', 'weather', 'temperature_(°C)', 'comment_env']]
+                        treated_df = df.loc[:, ['observation_name', 'latitude', 'longitude', 'ipen', 'no_name_on_list', 'name_proposition', 'herbivory_(percent)', 'comment_eco', 'soil_type', 'weather', 'temperature_(°C)', 'comment_env']]
                         # Replace NAs by nothing, otherwise directus raises an error
                         treated_df.fillna('', inplace=True)
                         # Send each row individually to directus
                         for index, row in treated_df.iterrows():
                               # Store correct field_sample_name, depending if user entered it in sample_name or name_proposition
                               if row["no_name_on_list"] != 1 or row["no_name_on_list"] != 1.0:
-                                    field_sample_name = row["sample_name"]
+                                    field_sample_name = row["observation_name"]
                               else:
                                     field_sample_name = row["name_proposition"]
                               # Create json for data import
