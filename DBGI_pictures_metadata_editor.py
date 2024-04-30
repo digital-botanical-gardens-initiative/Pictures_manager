@@ -65,11 +65,11 @@ for root, dirs, files in os.walk(pictures_folder):
                     
                     elif 'date' in row and row['date'] and row['date'] == unique_id:
                         lon = row['longitude']
-                        print(lon)
+                        print(f"lon: {lon}")
                         lat = row['latitude']
-                        print(lat)
+                        print(f"lat: {lat}")
                         date = row['date']
-                        print(date)
+                        print(f"date: {date}")
                         date_exist = "Obs"
                         break
 
