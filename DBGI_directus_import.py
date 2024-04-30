@@ -53,8 +53,8 @@ for root, dirs, files in os.walk(out_csv_path):
                               else:
                                     field_sample_name = row["name_proposition"]
                               # Create json for data import
-                              data = {'field_sample_name': field_sample_name,
-                                    'latitude': str(row["latitude"]),
+                              data = {'latitude': str(row["latitude"]),
+                                    'field_sample_name': field_sample_name,
                                     'longitude': row["longitude"],
                                     'ipen': row["ipen"],
                                     'herbivory_percent': row["herbivory_(percent)"], 
