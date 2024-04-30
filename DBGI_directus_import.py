@@ -76,7 +76,7 @@ for root, dirs, files in os.walk(out_csv_path):
                                           # If still not success response, print informations on the sample.
                                           # Should be replaced by an other directus request to have a track of unsuccessful import elsewhere than in the log.
                                           if response.status_code != 200:
-                                                print(row["field_sample_name"])
+                                                print(field_sample_name)
                                                 print(response.status_code)
                                                 print(filename)
                   else:
