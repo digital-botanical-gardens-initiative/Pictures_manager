@@ -37,7 +37,6 @@ for root, dirs, files in os.walk(pictures_folder):
     for file in files:
         if file.lower().endswith('.jpg'):
             picture_path = os.path.join(root, file)
-
             # Get unique identifier from picture name
             unique_id = re.search(pattern, file).group()
             unique_prefixed = 'emi_external_id:' + unique_id
@@ -54,7 +53,7 @@ for root, dirs, files in os.walk(pictures_folder):
             with open(csv_filename, 'r') as f:
                 reader = csv.DictReader(f)
                 for row in reader:
-                    if row['sample_id'] or row['date'] == unique_id:
+                    if 'sample_id' in row and row['sample_id'] == unique_id:
                         lon = row['longitude']
                         lat = row['latitude']
                         if row["date"]:
@@ -63,6 +62,14 @@ for root, dirs, files in os.walk(pictures_folder):
                         else:
                             date_exist = False
                         break
+                    
+                    elif 'date' in row and row['date'] == unique_id:
+                        lon = row['longitude']
+                        lat = row['latitude']
+                        date = row['date']
+                        date_exist = "Obs"
+                        break
+
                 else:
                      print(f"No coordinates found for {unique_id} in {csv_filename}")
                      continue
@@ -80,8 +87,10 @@ for root, dirs, files in os.walk(pictures_folder):
             # Write metadata using exiftool
             if date_exist == True:
                 command = f"./exiftool -Subject={unique_prefixed} -EXIF:GPSLongitude*={lon} -EXIF:GPSLatitude*={lat} -EXIF:DateTimeOriginal={date} {picture_path} -overwrite_original -o {output_path}"
-            else:
+            elif date_exist == False:
                 command = f"./exiftool -Subject={unique_prefixed} -EXIF:GPSLongitude*={lon} -EXIF:GPSLatitude*={lat} {picture_path} -overwrite_original -o {output_path}"
+            elif date_exist == "Obs":
+                command = f"./exiftool -EXIF:GPSLongitude*={lon} -EXIF:GPSLatitude*={lat} {picture_path} -overwrite_original -o {output_path}"
             subprocess.run(command, shell=True)
 
             print(f"Metadata written for {picture_path}")
