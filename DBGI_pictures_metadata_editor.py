@@ -64,7 +64,7 @@ for root, dirs, files in os.walk(pictures_folder):
                             date_exist = False
                         break
                     
-                    elif 'date' in row and row['date'] and row['date'] == unique_id:
+                    elif 'date' in row and row['date'] and row['date'] == f"{unique_id}.0":
                         lon = row['longitude']
                         print(f"lon: {lon}")
                         lat = row['latitude']
