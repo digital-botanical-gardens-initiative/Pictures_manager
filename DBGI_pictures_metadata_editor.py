@@ -53,17 +53,17 @@ for root, dirs, files in os.walk(pictures_folder):
             with open(csv_filename, 'r') as f:
                 reader = csv.DictReader(f)
                 for row in reader:
-                    if row['sample_id'] and row['sample_id'] == unique_id:
+                    if 'sample_id' in row and row['sample_id'] and row['sample_id'] == unique_id:
                         lon = row['longitude']
                         lat = row['latitude']
-                        if row["date"]:
+                        if 'date' in row and row['date']:
                             date = row['date']
                             date_exist = True
                         else:
                             date_exist = False
                         break
                     
-                    elif row['date'] and row['date'] == unique_id:
+                    elif 'date' in row and row['date'] and row['date'] == unique_id:
                         lon = row['longitude']
                         lat = row['latitude']
                         date = row['date']
