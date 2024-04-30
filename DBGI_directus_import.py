@@ -36,7 +36,7 @@ out_csv_path = os.getenv('out_csv_path')
 for root, dirs, files in os.walk(out_csv_path):
     for filename in files:
         # Ignore old layer without sample_id
-        if filename.endswith('.csv') and filename != "SBL_20004_2022_EPSG:4326.csv" and not filename.endswith("_obs"):
+        if filename.endswith('.csv') and filename != "SBL_20004_2022_EPSG:4326.csv" and not filename.endswith("_obs_EPSG:4326"):
                 # Read each df
                 constructed_path = root + "/" + filename
                 df = pd.read_csv(constructed_path)
