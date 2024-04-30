@@ -53,7 +53,7 @@ for root, dirs, files in os.walk(pictures_folder):
             with open(csv_filename, 'r') as f:
                 reader = csv.DictReader(f)
                 for row in reader:
-                    if 'sample_id' in row and row['sample_id'] == unique_id:
+                    if row['sample_id'] and row['sample_id'] == unique_id:
                         lon = row['longitude']
                         lat = row['latitude']
                         if row["date"]:
@@ -63,7 +63,7 @@ for root, dirs, files in os.walk(pictures_folder):
                             date_exist = False
                         break
                     
-                    elif 'date' in row and row['date'] == unique_id:
+                    elif row['date'] and row['date'] == unique_id:
                         lon = row['longitude']
                         lat = row['latitude']
                         date = row['date']
