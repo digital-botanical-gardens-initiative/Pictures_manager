@@ -70,7 +70,7 @@ for root, dirs, files in os.walk(out_csv_path):
                               # Check if success, if not try modifying the data to update already existing observations
                               if response.status_code != 200:
                                           # Modify url to target the correct observation
-                                          collection_url_patch = collection_url_obs + row["latitude"]
+                                          collection_url_patch = collection_url_obs + str(row["latitude"])
                                           # Request
                                           response = session.patch(url=collection_url_patch, headers=headers, json=data)
                                           # If still not success response, print informations on the sample.
