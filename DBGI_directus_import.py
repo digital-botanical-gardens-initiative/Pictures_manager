@@ -23,7 +23,7 @@ response = session.post(login_url, json={'email': directus_email, 'password': di
 data = response.json()['data']
 directus_access_token = data['access_token']
 collection_url = base_url + '/items/Qfield_Data/'
-collection_url_obs = base_url + '/items/Qfield_Data_Obs/'
+collection_url_obs = base_url + '/items/QField_Data_Obs/'
 session.headers.update({'Authorization': f'Bearer {directus_access_token}'})
 
 #Add headers
