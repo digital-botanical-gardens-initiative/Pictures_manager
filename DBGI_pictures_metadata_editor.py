@@ -28,7 +28,9 @@ session = requests.Session()
 response = session.get(collection_url, params=params)
 data = response.json()['data']
 project_names = [item[column] for item in data]
-pattern = "(" + "|".join(project_names) + ")_[0-9]{6}"
+
+# Aggregate patterns
+pattern = "(" + "|".join(project_names) + ")_[0-9]{6}|[0-9]{14}"
 
 # Loop over pictures
 for root, dirs, files in os.walk(pictures_folder):
@@ -52,9 +54,14 @@ for root, dirs, files in os.walk(pictures_folder):
             with open(csv_filename, 'r') as f:
                 reader = csv.DictReader(f)
                 for row in reader:
-                    if row['sample_id'] == unique_id:
+                    if row['sample_id'] or row['date'] == unique_id:
                         lon = row['longitude']
                         lat = row['latitude']
+                        if row["date"]:
+                            date = row['date']
+                            date_exist = True
+                        else:
+                            date_exist = False
                         break
                 else:
                      print(f"No coordinates found for {unique_id} in {csv_filename}")
@@ -71,7 +78,10 @@ for root, dirs, files in os.walk(pictures_folder):
             os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
             # Write metadata using exiftool
-            command = f"./exiftool -Subject={unique_prefixed} -EXIF:GPSLongitude*={lon} -EXIF:GPSLatitude*={lat} {picture_path} -overwrite_original -o {output_path}"
+            if date_exist == True:
+                command = f"./exiftool -Subject={unique_prefixed} -EXIF:GPSLongitude*={lon} -EXIF:GPSLatitude*={lat} -EXIF:DateTimeOriginal={date} {picture_path} -overwrite_original -o {output_path}"
+            else:
+                command = f"./exiftool -Subject={unique_prefixed} -EXIF:GPSLongitude*={lon} -EXIF:GPSLatitude*={lat} {picture_path} -overwrite_original -o {output_path}"
             subprocess.run(command, shell=True)
 
             print(f"Metadata written for {picture_path}")
