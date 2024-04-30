@@ -79,6 +79,7 @@ for root, dirs, files in os.walk(out_csv_path):
                                                 print(field_sample_name)
                                                 print(response.status_code)
                                                 print(filename)
+                                                print(response.json())
                   else:
                         # Homogeneize data for directus import
                         treated_df = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen', 'no_name_on_list', 'name_proposition', 'herbivory_(percent)', 'comment_eco', 'soil_type', 'weather', 'temperature_(°C)', 'comment_env']]
@@ -125,7 +126,6 @@ for root, dirs, files in os.walk(out_csv_path):
                                                       print(row["field_sample_id"])
                                                       print(response.status_code)
                                                       print(filename)
-                                                      print(response)
                               else:
                                     print("no field sample id")
 
