@@ -125,6 +125,7 @@ for root, dirs, files in os.walk(out_csv_path):
                                                       print(row["field_sample_id"])
                                                       print(response.status_code)
                                                       print(filename)
+                                                      print(response)
                               else:
                                     print("no field sample id")
 
