@@ -53,6 +53,7 @@ for root, dirs, files in os.walk(pictures_folder):
             with open(csv_filename, 'r') as f:
                 reader = csv.DictReader(f)
                 for row in reader:
+                    print(row)
                     if 'sample_id' in row and row['sample_id'] and row['sample_id'] == unique_id:
                         lon = row['longitude']
                         lat = row['latitude']
