@@ -62,7 +62,6 @@ for root, dirs, files in os.walk(pictures_folder):
                             date_string = str(date)
                             parts = str.split(date_string, ".")
                             formatted_date = datetime.strptime(parts[0], '%Y%m%d%H%M%S')
-                            print(formatted_date)
                             date_exist = True
                         else:
                             date_exist = False
@@ -75,8 +74,7 @@ for root, dirs, files in os.walk(pictures_folder):
                         date_string = str(date)
                         parts = str.split(date_string, ".")
                         formatted_date = datetime.strptime(parts[0], '%Y%m%d%H%M%S')
-                        formatted_date = {formatted_date.strftime('%Y:%m:%d %H:%M:%S')}
-                        print(formatted_date)
+                        formatted_date = formatted_date.strftime('%Y:%m:%d %H:%M:%S')
                         date_exist = "Obs"
                         break
 
