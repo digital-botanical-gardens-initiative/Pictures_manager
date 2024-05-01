@@ -59,6 +59,9 @@ for root, dirs, files in os.walk(pictures_folder):
                         lat = row['latitude']
                         if 'date' in row and row['date']:
                             date = row['date']
+                            date_string = str(int(date))
+                            formatted_date = datetime.strptime(date_string, '%Y%m%d%H%M%S')
+                            print(formatted_date)
                             date_exist = True
                         else:
                             date_exist = False
