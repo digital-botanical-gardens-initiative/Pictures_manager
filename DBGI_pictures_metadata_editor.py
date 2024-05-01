@@ -75,7 +75,7 @@ for root, dirs, files in os.walk(pictures_folder):
                         date_string = str(date)
                         parts = str.split(date_string, ".")
                         formatted_date = datetime.strptime(parts[0], '%Y%m%d%H%M%S')
-                        formatted_date = f'"{formatted_date.strftime('%Y:%m:%d %H:%M:%S')}"'
+                        formatted_date = {formatted_date.strftime('%Y:%m:%d %H:%M:%S')}
                         print(formatted_date)
                         date_exist = "Obs"
                         break
@@ -96,11 +96,11 @@ for root, dirs, files in os.walk(pictures_folder):
 
             # Write metadata using exiftool
             if date_exist == True:
-                command = f"./exiftool -Subject={unique_prefixed} -EXIF:GPSLongitude*={lon} -EXIF:GPSLatitude*={lat} -EXIF:DateTimeOriginal={formatted_date} {picture_path} -overwrite_original -o {output_path}"
+                command = f"./exiftool -Subject={unique_prefixed} -EXIF:GPSLongitude*={lon} -EXIF:GPSLatitude*={lat} -EXIF:DateTimeOriginal=\"{formatted_date}\" {picture_path} -overwrite_original -o {output_path}"
             elif date_exist == False:
                 command = f"./exiftool -Subject={unique_prefixed} -EXIF:GPSLongitude*={lon} -EXIF:GPSLatitude*={lat} {picture_path} -overwrite_original -o {output_path}"
             elif date_exist == "Obs":
-                command = f"./exiftool -EXIF:GPSLongitude*={lon} -EXIF:GPSLatitude*={lat} -EXIF:DateTimeOriginal={formatted_date} {picture_path} -overwrite_original -o {output_path}"
+                command = f"./exiftool -EXIF:GPSLongitude*={lon} -EXIF:GPSLatitude*={lat} -EXIF:DateTimeOriginal=\"{formatted_date}\" {picture_path} -overwrite_original -o {output_path}"
             subprocess.run(command, shell=True)
 
             print(f"Metadata written for {picture_path}")
