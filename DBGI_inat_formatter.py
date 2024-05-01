@@ -29,7 +29,9 @@ session = requests.Session()
 response = session.get(collection_url, params=params)
 data = response.json()['data']
 project_names = [item[column] for item in data]
-pattern = "(" + "|".join(project_names) + ")_\d+"
+
+# Aggregate patterns
+pattern = "(" + "|".join(project_names) + ")_[0-9]{6}|[0-9]{14}"
 
 # Loop over the pictures in the source folder and its subfolders
 for file_path in glob.glob(os.path.join(output_folder, '**/*.jpg'), recursive=True):
