@@ -20,8 +20,7 @@ in_jpg_path= os.getenv('in_jpg_path')
 
 #Server connection
 #client = sdk.Client(url=url, verify_ssl=False)
-#credentials = client.login(username=username, password=password)
-client = sdk.Client(url=url, verify_ssl=False)
+client = sdk.Client(url=url)
 credentials = client.login(username=username, password=password)
 
 #Stores connection token
