@@ -93,10 +93,9 @@ for root, dirs, files in os.walk(out_csv_path):
                                     if response.status_code != 200:
                                           print(field_sample_name)
                                           print(response.status_code)
-                                          print(response.json())
+                                          #print(response.json())
                   else:
                         # Homogeneize data for directus import
-                        print(filename)
                         treated_df = df.loc[:, ['collector_fullname', 'observation_subject', 'inat_upload', 'sample_id', 'taxon_name', 'latitude', 'longitude', 'ipen', 'no_name_on_list', 'name_proposition', 'herbivory_(percent)', 'comment_eco', 'soil_type', 'weather', 'temperature_(°C)', 'comment_env', 'date', 'collector_orcid', 'collector_inat', 'is_wild']]
                         treated_df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
                         # Remove possible whitespaces
@@ -155,7 +154,7 @@ for root, dirs, files in os.walk(out_csv_path):
                                           if response.status_code != 200:
                                                 print(row["field_sample_id"])
                                                 print(response.status_code)
-                                                print(response.json())
+                                                #print(response.json())
                               else:
                                     print("no field sample id")
 
