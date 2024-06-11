@@ -42,6 +42,7 @@ for root, dirs, files in os.walk(out_csv_path):
                   constructed_path = root + "/" + filename
                   df = pd.read_csv(constructed_path)
                   if filename.endswith("_obs_EPSG:4326.csv"):
+                        print(filename)
                         treated_df = df.loc[:, ['collector_fullname', 'inat_upload', 'taxon_name', 'latitude', 'longitude', 'ipen', 'no_name_on_list', 'name_proposition', 'herbivory_(percent)', 'comment_eco', 'soil_type', 'weather', 'temperature_(°C)', 'comment_env', 'collector_orcid', 'collector_inat', 'date']]
                         # Replace NAs by nothing, otherwise directus raises an error
                         treated_df.fillna('', inplace=True)
@@ -87,6 +88,7 @@ for root, dirs, files in os.walk(out_csv_path):
                                           print(response.json())
                   else:
                         # Homogeneize data for directus import
+                        print(filename)
                         treated_df = df.loc[:, ['collector_fullname', 'observation_subject', 'inat_upload', 'sample_id', 'taxon_name', 'latitude', 'longitude', 'ipen', 'no_name_on_list', 'name_proposition', 'herbivory_(percent)', 'comment_eco', 'soil_type', 'weather', 'temperature_(°C)', 'comment_env', 'date', 'collector_orcid', 'collector_inat']]
                         treated_df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
                         # Remove possible whitespaces
