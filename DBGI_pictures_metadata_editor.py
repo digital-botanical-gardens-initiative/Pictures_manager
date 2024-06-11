@@ -54,7 +54,10 @@ for root, dirs, files in os.walk(pictures_folder):
             with open(csv_filename, 'r') as f:
                 reader = csv.DictReader(f)
                 for row in reader:
-                    date = int(row["date"])
+                    date = row['date']
+                    date_string = str(date)
+                    parts = str.split(date_string, ".")
+                    date = parts[0]
                     if 'sample_id' in row and row['sample_id'] and row['sample_id'] == unique_id:
                         lon = row['longitude']
                         lat = row['latitude']
@@ -71,10 +74,7 @@ for root, dirs, files in os.walk(pictures_folder):
                     elif 'date' in row and row['date'] and date == unique_id:
                         lon = row['longitude']
                         lat = row['latitude']
-                        date = row['date']
-                        date_string = str(date)
-                        parts = str.split(date_string, ".")
-                        formatted_date = datetime.strptime(parts[0], '%Y%m%d%H%M%S')
+                        formatted_date = datetime.strptime(date, '%Y%m%d%H%M%S')
                         formatted_date = formatted_date.strftime('%Y:%m:%d %H:%M:%S')
                         date_exist = "Obs"
                         break
