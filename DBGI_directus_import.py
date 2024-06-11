@@ -42,14 +42,14 @@ for root, dirs, files in os.walk(out_csv_path):
                   constructed_path = root + "/" + filename
                   df = pd.read_csv(constructed_path)
                   if filename.endswith("_obs_EPSG:4326.csv"):
-                        treated_df = df.loc[:, ['observation_name', 'latitude', 'longitude', 'ipen', 'no_name_on_list', 'name_proposition', 'herbivory_(percent)', 'comment_eco', 'soil_type', 'weather', 'temperature_(°C)', 'comment_env']]
+                        treated_df = df.loc[:, ['collector_fullname', 'inat_upload', 'taxon_name', 'latitude', 'longitude', 'ipen', 'no_name_on_list', 'name_proposition', 'herbivory_(percent)', 'comment_eco', 'soil_type', 'weather', 'temperature_(°C)', 'comment_env', 'collector_orcid', 'collector_inat', 'date']]
                         # Replace NAs by nothing, otherwise directus raises an error
                         treated_df.fillna('', inplace=True)
                         # Send each row individually to directus
                         for index, row in treated_df.iterrows():
                               # Store correct field_sample_name, depending if user entered it in sample_name or name_proposition
                               if row["no_name_on_list"] != 1 or row["no_name_on_list"] != 1.0:
-                                    field_sample_name = row["observation_name"]
+                                    field_sample_name = row["taxon_name"]
                               else:
                                     field_sample_name = row["name_proposition"]
                               # Create json for data import
@@ -62,7 +62,12 @@ for root, dirs, files in os.walk(out_csv_path):
                                     'soil_type': row["soil_type"],
                                     'weather': row["weather"],
                                     'temperature_celsius': row["temperature_(°C)"],
-                                    'comment_env': row["comment_env"]}
+                                    'comment_env': row["comment_env"],
+                                    'inat_upload': row["inat_upload"],
+                                    'collector_fullname': row["collector_fullname"],
+                                    'collector_orcid': row["collector_orcid"],
+                                    'collector_inat': row["collector_inat"],
+                                    'collection_date': row["date"]}
                         
                               # Request
                               response = session.post(url=collection_url_obs, headers=headers, json=data)
@@ -82,7 +87,7 @@ for root, dirs, files in os.walk(out_csv_path):
                                           print(response.json())
                   else:
                         # Homogeneize data for directus import
-                        treated_df = df.loc[:, ['sample_id', 'sample_name', 'latitude', 'longitude', 'ipen', 'no_name_on_list', 'name_proposition', 'herbivory_(percent)', 'comment_eco', 'soil_type', 'weather', 'temperature_(°C)', 'comment_env']]
+                        treated_df = df.loc[:, ['collector_fullname', 'observation_subject', 'inat_upload', 'sample_id', 'taxon_name', 'latitude', 'longitude', 'ipen', 'no_name_on_list', 'name_proposition', 'herbivory_(percent)', 'comment_eco', 'soil_type', 'weather', 'temperature_(°C)', 'comment_env', 'date', 'collector_orcid', 'collector_inat']]
                         treated_df.rename(columns={'sample_id':'field_sample_id'}, inplace=True)
                         # Remove possible whitespaces
                         treated_df["field_sample_id"] = treated_df["field_sample_id"].str.strip()
@@ -94,7 +99,7 @@ for root, dirs, files in os.walk(out_csv_path):
                               if row["field_sample_id"] != '':
                               # Store correct field_sample_name, depending if user entered it in sample_name or name_proposition
                                     if row["no_name_on_list"] != 1 or row["no_name_on_list"] != 1.0:
-                                          field_sample_name = row["sample_name"]
+                                          field_sample_name = row["taxon_name"]
                                     else:
                                           field_sample_name = row["name_proposition"]
                                     # Create json for data import
@@ -109,7 +114,12 @@ for root, dirs, files in os.walk(out_csv_path):
                                           'soil_type': row["soil_type"],
                                           'weather': row["weather"],
                                           'temperature_celsius': row["temperature_(°C)"],
-                                          'comment_env': row["comment_env"]}
+                                          'comment_env': row["comment_env"],
+                                          'inat_upload': row["inat_upload"],
+                                          'collector_fullname': row["collector_fullname"],
+                                          'collector_orcid': row["collector_orcid"],
+                                          'collector_inat': row["collector_inat"],
+                                          'collection_date': row["date"]}
                               
                                     # Request
                                     response = session.post(url=collection_url, headers=headers, json=data)
