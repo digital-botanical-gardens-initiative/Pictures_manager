@@ -48,3 +48,4 @@ print("Files moved successfully.")
 #scan_path = '/var/www/nextcloud'
 #scan_command = 'sudo -u www-data php occ files:scan --all'
 #subprocess.run(scan_command, shell=True, cwd=scan_path)
+#New command to update nextcloud: docker exec -u www-data -it 707c618b01c0 php occ files:scan --all
